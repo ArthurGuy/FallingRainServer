@@ -15,7 +15,7 @@
         }
         #led-wall {
             height: 500px;
-            width: 64px;
+            width: 128px;
             background-color: white;
             border: 1px solid black;
             position: absolute;
@@ -38,7 +38,7 @@
         });
         $('#led-wall').mousemove(function (event) {
             var parentOffset = $(this).offset();
-            var x = Math.ceil((event.pageX - parentOffset.left) / 8); //4
+            var x = Math.ceil((event.pageX - parentOffset.left) / 16); //4
             var y = Math.ceil((event.pageY - parentOffset.top) / 4);  //8
             socket.emit('new-data', {x:x, y:y});
             console.log(x, y);
