@@ -13,6 +13,6 @@ app.get('/', function (request, response) {
 io.on('connection', function (socket) {
     console.log('A connection was made');
     socket.on('new-data', function(msg){
-        console.log('message: ' + msg);
+        io.emit('new-data', msg);
     });
 });
