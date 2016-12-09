@@ -13,13 +13,6 @@
         body {
             background-color: #edece4;
         }
-        .box {
-            width: 50px;
-            height: 50px;
-            background-color: blue;
-            margin: 1px;
-            float: left;
-        }
         #led-wall {
             height: 500px;
             width: 64px;
@@ -32,16 +25,6 @@
 </head>
 <body>
     <h1>Falling Rain</h1>
-<!--
-    <div class="box" id="box0"></div>
-    <div class="box" id="box1"></div>
-    <div class="box" id="box2"></div>
-    <div class="box" id="box3"></div>
-    <div class="box" id="box4"></div>
-    <div class="box" id="box5"></div>
-    <div class="box" id="box6"></div>
-    <div class="box" id="box7"></div>
-    -->
 
     <div id="led-wall"></div>
 
@@ -57,33 +40,8 @@
             var parentOffset = $(this).offset();
             var x = Math.ceil((event.pageX - parentOffset.left) / 8); //4
             var y = Math.ceil((event.pageY - parentOffset.top) / 4);  //8
-            socket.emit('new-data', '*S:'+x+','+y+'*');
             socket.emit('new-data', {x:x, y:y});
             console.log(x, y);
-        });
-        $('#box0').mouseover(function (event) {
-            socket.emit('new-data', '*S:0,0*');
-        });
-        $('#box1').mouseover(function (event) {
-            socket.emit('new-data', '*S:1,0*');
-        });
-        $('#box2').mouseover(function (event) {
-            socket.emit('new-data', '*S:2,0*');
-        });
-        $('#box3').mouseover(function (event) {
-            socket.emit('new-data', '*S:3,0*');
-        });
-        $('#box4').mouseover(function (event) {
-            socket.emit('new-data', '*S:4,0*');
-        });
-        $('#box5').mouseover(function (event) {
-            socket.emit('new-data', '*S:5,0*');
-        });
-        $('#box6').mouseover(function (event) {
-            socket.emit('new-data', '*S:6,0*');
-        });
-        $('#box7').mouseover(function (event) {
-            socket.emit('new-data', '*S:7,0*');
         });
     </script>
 
