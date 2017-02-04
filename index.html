@@ -20,19 +20,21 @@
         #wall-wrapper {
             position: relative;
             height: 100%;
-        }
-        #led-wall {
             background-color: white;
             border: 1px solid black;
+        }
+        #led-wall {
             height: 100%;
             width: 100%;
             touch-action: none;
             position:absolute;
+            z-index: 2
         }
         #led-wall-feedback {
             height: 100%;
             width: 100%;
             position:absolute;
+            z-index: 1
         }
         .side-panel {
             float:left;
@@ -126,6 +128,9 @@
             var wallWidth  = $('#led-wall').width();
             var wallHeight = $('#led-wall').height();
             var parentOffset = $('#led-wall').offset();
+            
+            var canvas = document.getElementById('led-wall-feedback');
+            var ctx = canvas.getContext('2d');
         
             $('#led-wall').on('touchstart touchmove', function (event) {
 
@@ -175,6 +180,13 @@
                 if ((data.type == 'S') || (data.type == 'E')) {
                     let x = data.x + parentOffset.left;
                     let y = data.y + parentOffset.top;
+                    
+                    // Clear the screen
+                    ctx.strokeRect(0, 0, wallWidth, wallHeight);
+                    
+                    // Draw a marker
+                    ctx.arc(x, y, 5, 0, Math.PI * 2, true);
+                    
                 }
             });
         });
