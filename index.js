@@ -17,4 +17,8 @@ io.on('connection', function (socket) {
     });
     
     io.emit('client-count', io.engine.clientsCount);
+    
+    socket.on('disconnect', function() {
+        io.emit('client-count', io.engine.clientsCount);
+    });
 });
