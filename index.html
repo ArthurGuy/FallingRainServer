@@ -48,13 +48,10 @@
         <h1>Falling Rain</h1>
         <div class="btn-group" data-toggle="buttons">
           <label class="btn btn-primary active">
-            <input type="radio" name="type" id="S" autocomplete="off" checked> Rain
+            <input type="radio" name="type" value="S" autocomplete="off" checked> Rain
           </label>
           <label class="btn btn-primary">
-            <input type="radio" name="type" id="E" autocomplete="off"> Explosion
-          </label>
-          <label class="btn btn-primary">
-            <input type="radio" name="type" id="test" autocomplete="off"> ?
+            <input type="radio" name="type" value="E" autocomplete="off"> Explosion
           </label>
         </div>
     </div>
@@ -90,7 +87,8 @@
             y = map(y, 0, $('#led-wall').height(), 0, 125);
             
             var message = 'Hello';
-            var type = 'S';
+            var type = $('input[name=type]:checked').val();
+            
             socket.emit('new-data', {type:type, x:x, y:y});
             console.log(type, x, y, message);
         });
