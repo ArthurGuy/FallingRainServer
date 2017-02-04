@@ -85,6 +85,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
     <script>
+        var clientId = guid();
+        
         var socket = io();
         socket.on('display-connected', function(data){
             console.log("Display connected");
@@ -98,6 +100,18 @@
             console.log("Clients: ", data);
             $('#connectedUserCount').text(data);
         });
+        
+        socket.on('new-data', function(data){
+            // If the message is our own, ignore it
+            if (data.clientId == clientId) {
+                return;
+            }
+            
+            // Get other peoples messages
+            console.log(data);
+        });
+        
+        
         
         // X and Y positions need to be scalled for the display
         // X needs to be between 0 and 8
@@ -128,20 +142,30 @@
 
                 var type = $('input[name=type]:checked').val();
 
-                socket.emit('new-data', {type:type, x:x, y:y});
+                socket.emit('new-data', {clientId: clientId, type:type, x:x, y:y});
                 //console.log(type, x, y);
             });
             
             $('#sendMessage').click(function (event) {
                 event.preventDefault();
                 var message = $('#message').val();
-                socket.emit('new-data', {type:'M', message: message});
+                socket.emit('new-data', {clientId: clientId, type:'M', message: message});
                 $('#message').val('');
             });
         });
         
         function map(x, in_min, in_max, out_min, out_max) {
             return Math.floor((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
+        }
+        
+        function guid() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
         }
     </script>
 
