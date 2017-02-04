@@ -129,7 +129,7 @@
                 var type = $('input[name=type]:checked').val();
 
                 socket.emit('new-data', {type:type, x:x, y:y});
-                console.log(type, x, y);
+                //console.log(type, x, y);
             });
             
             $('#sendMessage').click(function (event) {
