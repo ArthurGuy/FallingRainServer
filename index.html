@@ -54,6 +54,12 @@
             <input type="radio" name="type" value="E" autocomplete="off"> Explosion
           </label>
         </div>
+        
+        <p>
+            <br>
+            Connected Users: <span id="connectedUserCount"></span>
+        </p>
+        
     </div>
     
     <div id="footer">
@@ -75,7 +81,8 @@
         });
         
         socket.on('client-count', function(data){
-            console.log("CLients: ", data);
+            console.log("Clients: ", data);
+            $('#connectedUserCount').text(data);
         });
         
         // X and Y positions need to be scalled for the display
