@@ -15,4 +15,6 @@ io.on('connection', function (socket) {
     socket.on('new-data', function(msg){
         io.emit('new-data', msg);
     });
+    
+    io.emit('client-count', io.engine.clientsCount);
 });
