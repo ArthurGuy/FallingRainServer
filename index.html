@@ -63,7 +63,7 @@
             <div class="side-panel col-xs-6">
                 <div id="wall-wrapper">
                     <div id="led-wall"></div>
-                    <canvas id="led-wall-feedback"></canvas>
+                    <canvas id="led-wall-feedback" width="8" height="125"></canvas>
                 </div>
             </div>
             <div class="side-panel col-xs-6">
@@ -182,10 +182,11 @@
                     let y = data.y + parentOffset.top;
                     
                     // Clear the screen
-                    ctx.strokeRect(0, 0, wallWidth, wallHeight);
+                    ctx.strokeRect(0, 0, 8, 125);
                     
                     // Draw a marker
                     ctx.arc(x, y, 5, 0, Math.PI * 2, true);
+                    ctx.fill();
                     
                 }
             });
