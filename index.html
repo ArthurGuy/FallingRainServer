@@ -22,6 +22,7 @@
             border: 1px solid black;
             height: 100%;
             width: 100%;
+            touch-action: none;
         }
         .side-panel {
             float:left;
@@ -101,18 +102,6 @@
             $('#connectedUserCount').text(data);
         });
         
-        socket.on('new-data', function(data){
-            // If the message is our own, ignore it
-            if (data.clientId == clientId) {
-                return;
-            }
-            
-            // Get other peoples messages
-            console.log(data);
-        });
-        
-        
-        
         // X and Y positions need to be scalled for the display
         // X needs to be between 0 and 8
         // Y needs to be between 0 and 125 
@@ -151,6 +140,22 @@
                 var message = $('#message').val();
                 socket.emit('new-data', {clientId: clientId, type:'M', message: message});
                 $('#message').val('');
+            });
+            
+            socket.on('new-data', function(data){
+                // If the message is our own, ignore it
+                if (data.clientId == clientId) {
+                    return;
+                }
+
+                // Get other peoples messages
+                console.log(data);
+                
+                // Render something for the user to see, canvas perhaps?
+                if ((data.type == 'S') || (data.type == 'E')) {
+                    let x = data.x + parentOffset.left;
+                    let y = data.y + parentOffset.top;
+                }
             });
         });
         
