@@ -17,12 +17,22 @@
             text-align: center;
             margin-top: 5px;
         }
+        #wall-wrapper {
+            position: relative;
+            height: 100%;
+        }
         #led-wall {
             background-color: white;
             border: 1px solid black;
             height: 100%;
             width: 100%;
             touch-action: none;
+            position:absolute;
+        }
+        #led-wall-feedback {
+            height: 100%;
+            width: 100%;
+            position:absolute;
         }
         .side-panel {
             float:left;
@@ -49,7 +59,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="side-panel col-xs-6">
-                <div id="led-wall"></div>
+                <div id="wall-wrapper">
+                    <div id="led-wall"></div>
+                    <canvas id="led-wall-feedback"></canvas>
+                </div>
             </div>
             <div class="side-panel col-xs-6">
                 <h1>Falling Rain</h1>
