@@ -74,6 +74,10 @@
             console.log("Received message from display", data.msg);
         });
         
+        socket.on('client-count', function(data){
+            console.log("CLients: ", data);
+        });
+        
         // X and Y positions need to be scalled for the display
         // X needs to be between 0 and 8
         // Y needs to be between 0 and 125 
