@@ -46,35 +46,37 @@
     </style>
 </head>
 <body>
-    
-    <div class="side-panel">
-        <div id="led-wall"></div>
-    </div>
-    <div class="side-panel">
-        <h1>Falling Rain</h1>
-        
-        <form>
-            <div class="form-group">
-                <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-primary active">
-                    <input type="radio" name="type" value="S" autocomplete="off" checked> Rain
-                  </label>
-                  <label class="btn btn-primary">
-                    <input type="radio" name="type" value="E" autocomplete="off"> Explosion
-                  </label>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="side-panel col-xs-6">
+                <div id="led-wall"></div>
+            </div>
+            <div class="side-panel col-xs-6">
+                <h1>Falling Rain</h1>
+
+                <form>
+                    <div class="form-group">
+                        <div class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-primary active">
+                            <input type="radio" name="type" value="S" autocomplete="off" checked> Rain
+                          </label>
+                          <label class="btn btn-primary">
+                            <input type="radio" name="type" value="E" autocomplete="off"> Explosion
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Message</label>
+                        <input type="text" class="form-control" id="message" placeholder="">
+                    </div>
+                    <button class="btn btn-default" id="sendMessage">Send</button>
+                </form>
+
+                <div id="connected-users">
+                    Connected Users: <span id="connectedUserCount"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Message</label>
-                <input type="text" class="form-control" id="message" placeholder="">
-            </div>
-            <button class="btn btn-default" id="sendMessage">Send</button>
-        </form>
-        
-        <div id="connected-users">
-            Connected Users: <span id="connectedUserCount"></span>
         </div>
-        
     </div>
     
     <div id="footer">
