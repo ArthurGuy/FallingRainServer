@@ -63,7 +63,7 @@
             <div class="side-panel col-xs-6">
                 <div id="wall-wrapper">
                     <div id="led-wall"></div>
-                    <canvas id="led-wall-feedback" width="8" height="125"></canvas>
+                    <canvas id="led-wall-feedback" width="32" height="125"></canvas>
                 </div>
             </div>
             <div class="side-panel col-xs-6">
@@ -178,16 +178,17 @@
                 
                 // Render something for the user to see, canvas perhaps?
                 if ((data.type == 'S') || (data.type == 'E')) {
-                    //let x = data.x + parentOffset.left;
-                    //let y = data.y + parentOffset.top;
+                    let xScale = 5;
+                    let x = data.x * xScale;
+                    let y = data.y;
                     
                     // Clear the screen
-                    ctx.clearRect(0, 0, 8, 125);
+                    ctx.clearRect(0, 0, 8 * xScale, 125);
                     
                     // Draw a marker
                     ctx.fillStyle = 'rgba(0, 255, 50, 0.8)';
                     ctx.beginPath();
-                    ctx.arc(data.x, data.y, 1, 0, Math.PI * 2, true);
+                    ctx.arc(x, y, 1, 0, Math.PI * 2, true);
                     ctx.fill();
                     
                 }
