@@ -128,6 +128,11 @@
 
                 x = map(x, 0, wallWidth, 0, 8);
                 y = map(y, 0, wallHeight, 0, 125);
+                
+                if ((x < 0 || x > 8) || (y < 0 || y > 125)) {
+                    // Out of range
+                    return;
+                }
 
                 var type = $('input[name=type]:checked').val();
 
