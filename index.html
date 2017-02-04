@@ -23,16 +23,25 @@
             height: 80vh;
             width: 50vw;
         }
+        .side-panel {
+            float:left;
+            width: 50vw;
+            height: 80vh;
+            padding: 5px;
+        }
         #footer {
             text-align: center;
         }
     </style>
 </head>
 <body>
-    
-    <h1>Falling Rain</h1>
 
-    <div id="led-wall"></div>
+    <div id="led-wall" class="side-panel"></div>
+    
+    <div class="side-panel">
+        <h1>Falling Rain</h1>
+    
+    </div>
     
     <div id="footer">
         <a href="https://arthurguy.co.uk">ArthurGuy.co.uk</a>
@@ -59,10 +68,10 @@
             x = map(x, 0, $('#led-wall').width(), 0, 8);
             y = map(y, 0, $('#led-wall').height(), 0, 125);
             
-            var message = x + ',' + y;
+            var message = 'Hello';
             var type = 'S';
-            socket.emit('new-data', {type:type, message:message});
-            console.log(type, message);
+            socket.emit('new-data', {type:type, x:x, y:y});
+            console.log(type, x, y, message);
         });
         
         function map(x, in_min, in_max, out_min, out_max) {
