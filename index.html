@@ -89,10 +89,20 @@
         // X needs to be between 0 and 8
         // Y needs to be between 0 and 125 
         
-        $('#led-wall').mousemove(function (event) {
+        $('#led-wall').on('touchstart touchmove', function (event) {
+            
+            var touchX, touchY;
+            if (event.type == 'touchstart') {
+                touchX = event.originalEvent.touches[0].pageX;
+                touchY = event.originalEvent.touches[0].pageY;
+            } else if (event.type == 'touchmove') {
+                touchX = event.originalEvent.changedTouches[0].pageX;
+                touchY = event.originalEvent.changedTouches[0].pageY;
+            }
+            
             var parentOffset = $(this).offset();
-            var x = (event.pageX - parentOffset.left);
-            var y = (event.pageY - parentOffset.top);
+            var x = (touchX - parentOffset.left);
+            var y = (touchY - parentOffset.top);
             
             x = map(x, 0, $('#led-wall').width(), 0, 8);
             y = map(y, 0, $('#led-wall').height(), 0, 125);
