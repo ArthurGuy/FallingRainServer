@@ -20,8 +20,8 @@
         #led-wall {
             background-color: white;
             border: 1px solid black;
-            height: 80vh;
-            width: 50vw;
+            height: 100%;
+            width: 100%;
         }
         .side-panel {
             float:left;
@@ -31,6 +31,11 @@
         }
         #footer {
             text-align: center;
+            float: left;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            padding 10px 0;
         }
     </style>
 </head>
@@ -41,7 +46,17 @@
     </div>
     <div class="side-panel">
         <h1>Falling Rain</h1>
-    
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-primary active">
+            <input type="radio" name="type" id="S" autocomplete="off" checked> Rain
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" name="type" id="E" autocomplete="off"> Explosion
+          </label>
+          <label class="btn btn-primary">
+            <input type="radio" name="type" id="test" autocomplete="off"> ?
+          </label>
+        </div>
     </div>
     
     <div id="footer">
@@ -50,11 +65,16 @@
 
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
     <script>
         var socket = io();
-        socket.on('new-data', function(data){
-            //console.log(data);
+        socket.on('display-connected', function(data){
+            console.log("Display connected");
+        });
+        
+        socket.on('display-msg', function(data){
+            console.log("Received message from display", data.msg);
         });
         
         // X and Y positions need to be scalled for the display
