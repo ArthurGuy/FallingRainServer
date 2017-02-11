@@ -154,16 +154,18 @@
                     return;
                 }
 
-                var type = $('input[name=type]:checked').val();
+                var type   = $('input[name=type]:checked').val();
+                var colour = 120;
 
-                socket.emit('new-data', {clientId: clientId, type:type, x:x, y:y});
+                socket.emit('new-data', {clientId: clientId, type:type, x:x, y:y, colour:colour});
                 //console.log(type, x, y);
             });
             
             $('#sendMessage').click(function (event) {
                 event.preventDefault();
                 var message = $('#message').val();
-                socket.emit('new-data', {clientId: clientId, type:'M', message: message});
+                var colour  = 120;
+                socket.emit('new-data', {clientId: clientId, type:'M', message: message, colour:colour});
                 $('#message').val('');
             });
             
