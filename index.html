@@ -186,7 +186,7 @@
             
             $('#makeRain').click(function (event) {
                 event.preventDefault();
-                for (int x = 0; x < 20; x++) {
+                for (var x = 0; x < 20; x++) {
                     socket.emit('new-data', {clientId: clientId, type:'S', x:getRandomIntInclusive(0, 7), y:0, colour:colour});
                 }
                 
