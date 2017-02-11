@@ -119,8 +119,7 @@
         });
         
         socket.on('client-count', function(data){
-            //console.log("Clients: ", data);
-            $('#connectedUserCount').text(data);
+            $('#connectedUserCount').text(data - 1);
         });
         
         // X and Y positions need to be scalled for the display
@@ -129,8 +128,8 @@
         
         $(document).ready(function() {
         
-            var wallWidth  = $('#led-wall').width();
-            var wallHeight = $('#led-wall').height();
+            var wallWidth    = $('#led-wall').width();
+            var wallHeight   = $('#led-wall').height();
             var parentOffset = $('#led-wall').offset();
             
             var canvas = document.getElementById('led-wall-feedback');
@@ -162,7 +161,6 @@
                 var colour = $('#colour').val();
 
                 socket.emit('new-data', {clientId: clientId, type:type, x:x, y:y, colour:colour});
-                //console.log(type, x, y);
             }.throttle(25));
             
             $('#sendMessage').click(function (event) {
@@ -182,7 +180,7 @@
                 // Get other peoples messages
                 //console.log(data);
                 
-                // Render something for the user to see, canvas perhaps?
+                // Render something for the user to see
                 if ((data.type == 'S') || (data.type == 'E')) {
                     let xScale = 5;
                     let x = (data.x * xScale) + 2;
@@ -192,7 +190,7 @@
                     ctx.clearRect(0, 0, 8 * xScale, 125);
                     
                     // Draw a marker
-                    ctx.fillStyle = 'rgba(0, 255, 50, 0.8)';
+                    ctx.fillStyle = 'hsl(' + data.colour + ', 100, 50)';
                     ctx.beginPath();
                     ctx.arc(x, y, 1, 0, Math.PI * 2, true);
                     ctx.fill();
