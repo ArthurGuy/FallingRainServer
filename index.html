@@ -89,6 +89,7 @@
                         <input type="text" class="form-control" id="message" placeholder="">
                     </div>
                     <button class="btn btn-default" id="sendMessage">Send</button>
+                    <button class="btn btn-default" id="clearColumns">Clear</button>
                 </form>
 
                 <div id="connected-users">
@@ -169,6 +170,11 @@
                 var colour  = $('#colour').val();
                 socket.emit('new-data', {clientId: clientId, type:'M', message: message, colour:colour});
                 $('#message').val('');
+            });
+            
+            $('#clearColumns').click(function (event) {
+                event.preventDefault();
+                socket.emit('new-data', {clientId: clientId, type:'C'});
             });
             
             socket.on('new-data', function(data){
