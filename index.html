@@ -119,7 +119,7 @@
         });
         
         socket.on('client-count', function(data){
-            console.log("Clients: ", data);
+            //console.log("Clients: ", data);
             $('#connectedUserCount').text(data);
         });
         
@@ -163,7 +163,7 @@
 
                 socket.emit('new-data', {clientId: clientId, type:type, x:x, y:y, colour:colour});
                 //console.log(type, x, y);
-            }.throttle(50));
+            }.throttle(25));
             
             $('#sendMessage').click(function (event) {
                 event.preventDefault();
