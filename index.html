@@ -94,6 +94,9 @@
                     <div class="form-group">
                         <button class="btn btn-default" id="clearColumns">Clear columns</button>
                     </div>
+                    <div class="form-group">
+                        <button class="btn btn-default" id="makeRain">Rain</button>
+                    </div>
                 </form>
 
                 <div id="connected-users">
@@ -181,6 +184,14 @@
                 socket.emit('new-data', {clientId: clientId, type:'C'});
             });
             
+            $('#makeRain').click(function (event) {
+                event.preventDefault();
+                for (int x = 0; x < 20; x++) {
+                    socket.emit('new-data', {clientId: clientId, type:'S', x:getRandomIntInclusive(0, 7), y:0, colour:colour});
+                }
+                
+            });
+            
             socket.on('new-data', function(data){
                 // If the message is our own, ignore it
                 if (data.clientId == clientId) {
@@ -221,6 +232,12 @@
           }
           return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
+        }
+        
+        function getRandomIntInclusive(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         
         /**
