@@ -163,7 +163,7 @@
 
                 socket.emit('new-data', {clientId: clientId, type:type, x:x, y:y, colour:colour});
                 //console.log(type, x, y);
-            });
+            }.throttle(50));
             
             $('#sendMessage').click(function (event) {
                 event.preventDefault();
@@ -180,7 +180,7 @@
                 }
 
                 // Get other peoples messages
-                console.log(data);
+                //console.log(data);
                 
                 // Render something for the user to see, canvas perhaps?
                 if ((data.type == 'S') || (data.type == 'E')) {
@@ -214,6 +214,31 @@
           return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
         }
+        
+        /**
+        * throttle
+        * @param {integer} milliseconds This param indicates the number of milliseconds
+        *     to wait between calls before calling the original function.
+        * @return {function} This returns a function that when called will wait the
+        *     indicated number of milliseconds between calls before
+        *     calling the original function.
+        */
+        Function.prototype.throttle = function (milliseconds) {
+            var baseFunction = this,
+                lastEventTimestamp = null,
+                limit = milliseconds;
+
+            return function () {
+                var self = this,
+                    args = arguments,
+                    now = Date.now();
+
+                if (!lastEventTimestamp || now - lastEventTimestamp >= limit) {
+                    lastEventTimestamp = now;
+                    baseFunction.apply(self, args);
+                }
+            };
+        };
     </script>
 
 </body>
