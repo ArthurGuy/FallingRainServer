@@ -95,7 +95,7 @@
                         <button class="btn btn-default" id="clearColumns">Clear columns</button>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-default" id="makeRain">Rain</button>
+                        <button type="button" class="btn btn-success" data-toggle="button" id="makeRain" autocomplete="off">Rain</button>
                     </div>
                 </form>
 
@@ -116,6 +116,8 @@
     
     <script>
         var clientId = guid();
+        
+        var rainTimer;
         
         var socket = io();
         socket.on('display-connected', function(data){
@@ -186,11 +188,11 @@
             
             $('#makeRain').click(function (event) {
                 event.preventDefault();
-                var colour = $('#colour').val();
-                for (var x = 0; x < 20; x++) {
-                    socket.emit('new-data', {clientId: clientId, type:'S', x:getRandomIntInclusive(0, 7), y:0, colour:colour});
+                if ($(this).hasClass('active')) {
+                    rainTimer = setInterval(makeRain, 100);
+                } else {
+                    clearInterval(rainTimer);
                 }
-                
             });
             
             socket.on('new-data', function(data){
@@ -220,6 +222,11 @@
                 }
             });
         });
+        
+        function makeRain() {
+            var colour = $('#colour').val();
+            socket.emit('new-data', {clientId: clientId, type:'S', x:getRandomIntInclusive(0, 7), y:0, colour:colour});
+        }
         
         function map(x, in_min, in_max, out_min, out_max) {
             return Math.floor((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
