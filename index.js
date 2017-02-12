@@ -20,6 +20,9 @@ io.on('connection', function (socket) {
     socket.on('display-msg', function(msg){
         io.emit('display-msg', msg);
     });
+    socket.on('display-hartbeat', function(msg){
+        io.emit('display-hartbeat', msg);
+    });
     
     io.emit('client-count', io.engine.clientsCount);
     
