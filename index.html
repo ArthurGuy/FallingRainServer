@@ -43,7 +43,7 @@
             padding: 10px;
             position: relative;
         }
-        #connected-users {
+        #meta-data {
             position:absolute;
             bottom: 0;
         }
@@ -99,8 +99,9 @@
                     </div>
                 </form>
 
-                <div id="connected-users">
-                    Connected Users: <span id="connectedUserCount"></span>
+                <div id="meta-data">
+                    Connected Users: <span id="connectedUserCount"></span><br>
+                    Time Since last contact: <span id="timeSinceLastContact"></span>
                 </div>
             </div>
         </div>
@@ -119,6 +120,8 @@
         
         var rainTimer;
         
+        var lastHeartbeat;
+        
         var socket = io();
         socket.on('display-connected', function(data){
             console.log("Display connected");
@@ -131,6 +134,8 @@
         socket.on('client-count', function(data){
             $('#connectedUserCount').text(data - 1);
         });
+        
+        setInterval(checkDisplayConnection, 1000);
         
         // X and Y positions need to be scalled for the display
         // X needs to be between 0 and 8
@@ -225,11 +230,20 @@
                     
                 }
             });
+            
+            socket.on('display-heartbeat', function(data) {
+                lastHeartbeat = new Date();
+            });
         });
         
         function makeRain() {
             var colour = $('#colour').val();
             socket.emit('new-data', {clientId: clientId, type:'S', x:getRandomIntInclusive(0, 7), y:0, colour:colour});
+        }
+        
+        function checkDisplayConnection() {
+            var difference = lastHeartbeat - new Date();
+            $('#timeSinceLastContact').txt(difference);
         }
         
         function map(x, in_min, in_max, out_min, out_max) {
