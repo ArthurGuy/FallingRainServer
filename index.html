@@ -242,8 +242,10 @@
         }
         
         function checkDisplayConnection() {
-            var difference = lastHeartbeat - new Date();
-            $('#timeSinceLastContact').text(difference);
+            if (lastHeartbeat) {
+                var difference = lastHeartbeat - new Date();
+                $('#timeSinceLastContact').text(difference);
+            }
         }
         
         function map(x, in_min, in_max, out_min, out_max) {
