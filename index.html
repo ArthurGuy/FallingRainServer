@@ -172,14 +172,7 @@
 
                 var x = (touchX - parentOffset.left);
                 var y = (touchY - parentOffset.top);
-                if ((lastX == x) && (lastY == y)) {
-                    // We havent moved anywhere, to help throttle the sent data ignore this one
-                    return;
-                }
                 
-                lastX = x;
-                lastY = y;
-
                 x = map(x, 0, wallWidth, 0, 7);     // 8 choices, 0 - 7
                 y = map(y, 0, wallHeight, 0, 124);  // 125 choices, 0 - 124
                 
@@ -187,6 +180,13 @@
                     // Out of range
                     return;
                 }
+                
+                if ((lastX == x) && (lastY == y)) {
+                    // We havent moved anywhere, to help throttle the sent data ignore this one
+                    return;
+                }
+                lastX = x;
+                lastY = y;
 
                 var type   = $('input[name=type]:checked').val();
                 var colour = $('#colour').val();
