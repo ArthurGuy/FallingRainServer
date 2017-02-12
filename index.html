@@ -100,8 +100,9 @@
                 </form>
 
                 <div id="meta-data">
-                    Connected Users: <span id="connectedUserCount"></span><br>
-                    Time Since last contact: <span id="timeSinceLastContact"></span>
+                    Connected users: <span id="connectedUserCount"></span><br>
+                    Time since last contact: <span id="timeSinceLastContact"></span><br>
+                    <span id="displayErrorMessage"></span>
                 </div>
             </div>
         </div>
@@ -122,6 +123,8 @@
         
         var lastHeartbeat;
         
+        var screenProblem;
+        
         var socket = io();
         socket.on('display-connected', function(data){
             console.log("Display connected");
@@ -135,7 +138,7 @@
             $('#connectedUserCount').text(data - 1);
         });
         
-        setInterval(checkDisplayConnection, 1000);
+        setInterval(checkDisplayConnection, 200);
         
         // X and Y positions need to be scalled for the display
         // X needs to be between 0 and 8
@@ -233,6 +236,7 @@
             
             socket.on('display-heartbeat', function(data) {
                 lastHeartbeat = new Date();
+                screenProblem = data.screenProblem;
             });
         });
         
@@ -245,6 +249,11 @@
             if (lastHeartbeat) {
                 var difference = (new Date() - lastHeartbeat);
                 $('#timeSinceLastContact').text(difference / 1000);
+                if (screenProblem) {
+                    $('#displayErrorMessage').text("Error with display");
+                } else {
+                    $('#displayErrorMessage').text("");
+                }
             }
         }
         
