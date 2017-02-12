@@ -84,12 +84,16 @@
                         <label for="colour">Colour</label>
                         <input type="range" class="form-control" id="colour" value="120" min="0" max="360" step="1">
                     </div>
-                    <div class="form-inline">
-                        <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
                             <label for="message">Message</label>
-                            <input type="text" class="form-control" id="message" placeholder="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="message" placeholder="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" id="sendMessage">Send</button>
+                                </span>
+                            </div>
                         </div>
-                        <button class="btn btn-success" id="sendMessage">Send</button>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-default" id="clearColumns">Clear columns</button>
