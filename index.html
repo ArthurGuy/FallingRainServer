@@ -243,8 +243,8 @@
         
         function checkDisplayConnection() {
             if (lastHeartbeat) {
-                var difference = lastHeartbeat - new Date();
-                $('#timeSinceLastContact').text(difference);
+                var difference = (new Date() - lastHeartbeat);
+                $('#timeSinceLastContact').text(difference / 1000);
             }
         }
         
