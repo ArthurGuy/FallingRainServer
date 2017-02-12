@@ -95,7 +95,7 @@
                         <button class="btn btn-default" id="clearColumns">Clear columns</button>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-success" data-toggle="button" id="makeRain" autocomplete="off">Rain</button>
+                        <button type="button" class="btn btn-success" id="makeRain">StartRain</button>
                     </div>
                 </form>
 
@@ -188,9 +188,13 @@
             
             $('#makeRain').click(function (event) {
                 event.preventDefault();
+                $('#makeRain').toggleClass('active');
+                
                 if ($(this).hasClass('active')) {
+                    $('#makeRain').text('Stop Raining');
                     rainTimer = setInterval(makeRain, 100);
                 } else {
+                    $('#makeRain').text('Start Rain');
                     clearInterval(rainTimer);
                 }
             });
